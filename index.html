@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  	<title>Test Firebase DB</title>
+    <!-- 
+    Tutorial Followed - https://levelup.gitconnected.com/lets-build-a-firebase-chat-app-using-vanilla-javascript-4baf877d9f49
+
+    Issues - its  unclear in the tutorial which code snippets go in which file index.html or app.js - so currntly nothing is getting saved to db. Plus i had to do extra work to setup the Realtime DB in Firebase
+
+    Chrome dev Console shows error - app.js:21 Uncaught TypeError: firebase.database is not a function
+    at app.js:21
+     -->
+</head>
+
+<body>
+  <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
+
+    <!-- Copy and paste these scripts into the bottom of your <body> tag, but before you use any Firebase services: -->
+
+    <!--  using CDN for now as Auto Config option not working  -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+
+  <h1>Test Firebase</h1>
+
+  <form id="dbtFormCh1">
+            <h2>Chapter 1 - Basic Distress Tolerance Skills</h2>
+            
+            <div class="dbtExercisesApp">
+      <h4>Q2: Cost of self-destructive coping strats</h4>
+            <p>
+                Linking to Q1 - display the possible costs for the selected coping mechanisms.
+                All those strategies are simply pathways into deeper pain, offering only temporary relief.
+                Note the strategies you use and their costs - and add any costs that you can think of on your own.
+            </p>
+              <!-- Question 2 answer area -->
+            <!-- Part 1: Past errors and mistakes -->
+            <p>
+                <b>I spend a lot of time thinking over past errors and mistakes.</b><br>
+                You might miss good things in the present, and regret missing them as well, compounding the problem. 
+                You might end up having depression about the past.
+            </p>
+            <textarea name="costsPastErrorsAndMistakes" id="ch1_q1_costsPastErrorsAndMistakes" rows="10" cols="70"></textarea>
+            <br>
+            <button id="submitBtn" type="submit">Submit</button>
+
+             </form>
+           </div>
+
+            <script>
+           let name="";
+            function init() {
+              name = prompt("Please enter your name");
+            }
+            //is abvoe { is right place ??
+            document.addEventListener('DOMContentLoaded', init);
+
+            dbtForm.addEventListener('submit', saveExercise);
+            </script>
+
+    <!-- firebase sdk link goes here -->
+    <script type="text/javascript" src="app.js"></script>
+
+</body>
+</html>
