@@ -2,24 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  	<title>Test Firebase DB</title>
-    <!-- 
-    Tutorial Followed - https://levelup.gitconnected.com/lets-build-a-firebase-chat-app-using-vanilla-javascript-4baf877d9f49
-
-    Issues - its  unclear in the tutorial which code snippets go in which file index.html or app.js - so currntly nothing is getting saved to db. Plus i had to do extra work to setup the Realtime DB in Firebase
-
-    Chrome dev Console shows error - app.js:21 Uncaught TypeError: firebase.database is not a function
-    at app.js:21
-     -->
+  <title>Test Firebase DB</title>
 </head>
 
 <body>
-<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
-
- <h1>Test Firebase STORE</h1>
-
-  <!-- Step 3: Add Firebase SDKs and initialize Firebas
+  <!-- Add Firebase SDKs and initialize Firebas
   	Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
   <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
@@ -27,83 +14,46 @@
 
   <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
   <!-- <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-analytics.js"></script> -->
-
   <!-- Add Firebase products that you want to use -->
   <!-- <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script> -->
+
   <!-- this is for cloud firestore db - causes error if u dont include it! TypeError: firebase.firestore is not a function -->
   <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
   <!-- Previously loaded Firebase SDKs -->
 
-<script type="text/javascript" src="app.js"></script>
-
-<div>
-  <p id="listUsers">user content</p>
-  <p id="listUsers2">user content2</p>
-
-</div>
-
-<script>
-  var listUserOutput = document.getElementById('listUsers').innerHTML = "testig";
-  var stringUsers =  "listUsers2222";
-
-  // get all users from db iterate over values 
-  // db.collection("users").get().then((querySnapshot) => {
-  //   querySnapshot.forEach((doc) => {
-  //       // console.log(`${doc.id} => ${doc.data()}`);
-  //       // how to get unique id, docRef.id that firebase generates
-  //       console.log(doc.id);
-  //       let tempUser = doc.data();
-  //       console.log(tempUser.fullName);
-  //       console.log(tempUser.nickName);
-  //       console.log(tempUser.overallScore);
-  //       console.log(tempUser.streaks);
-  //       stringUsers = tempUser.first + tempUser.last + tempUser.born;
-  //       //this syntax also works
-  //       // console.log("first: " + tempUser["first"]);
-  //   });
-  //   //the later user over rides the first user
-  //   var listUserOutput2 = document.getElementById('listUsers2').innerHTML = stringUsers;
-  // });
+  <!-- include our custom Javascript functions -->
+  <script type="text/javascript" src="app.js"></script>
 
 
-// get exercises - working ok
-  async function getExercises() {
-    const querySnapshot = await db.collection("exercises").get();
-    querySnapshot.forEach((doc) => {
-        console.log('INSIDE getExercises')
-        console.log(doc.id);
-        let currentExercise = doc.data();
-        console.log('Num ' + currentExercise.exerciseNumber);
-        console.log('Type ' + currentExercise.exerciseType);
-        console.log('Level ' + currentExercise.level);
-        console.log('Module ' + currentExercise.moduleName);
-        console.log('Points ' + currentExercise.points);
-        //need to iterate over this!
-        console.log('Questions ' + currentExercise.questionArray);
-    });
-    
-      // const newExerciseAdded = await db.collection("exercises").add(newExercise)
-      // console.log("the new exercise:", newExerciseAdded)
-      // console.log("its id:", newExerciseAdded.id)
-      //do i need catch?
-    }
+  <h1>Test Firebase Online Database</h1>
+  <div>
+    <p id="listUsers">user content</p>
+    <p id="listUsers2">user content2</p>
+  </div>
 
-      //get a scertain user Bobby
-    console.log('....abuot to call  getUser');
-    let userID = "D4fs4shpaaSMAUjnDGwG";
-    //this should be a Promise when returned?
-    let tempUser = getUser(userID);
-    console.log('....finished called getUser ' + tempUser.fullName);
-    // console.log(tempUser.fullName);
-
-    // getExercises();
+  <script>
+    var listUserOutput = document.getElementById('listUsers').innerHTML = "testig";
+    var stringUsers =  "listUsers2222";
 
 
-    let exID = "7V1WCY9W41alhmRKhYUL";
-    let tempExercise = getExercise(exID);
-    console.log('called getExercises');
+      //get a certain user Bobby
+      console.log('....abuot to call  getUser');
+      let userID = "D4fs4shpaaSMAUjnDGwG";
+      //this should be a Promise when returned?
+      let tempUser = getUser(userID);
+      console.log('....finished called getUser ' + tempUser.fullName);
+      // console.log(tempUser.fullName);
 
-</script>
+      //TODO these really needs a try/catch block
+      getUsers();
+      // getExercises();
 
- </body>
+      // get exericse by id
+      let exID = "7V1WCY9W41alhmRKhYUL";
+      let tempExercise = getExercise(exID);
+      console.log('called getExercises');
+
+  </script>
+
+</body>
 </html>
