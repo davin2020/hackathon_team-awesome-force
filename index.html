@@ -14,56 +14,58 @@
 </head>
 
 <body>
-  <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
 
-    <!-- Copy and paste these scripts into the bottom of your <body> tag, but before you use any Firebase services: -->
+ <h1>Test Firebase STORE</h1>
 
-    <!--  using CDN for now as Auto Config option not working  -->
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+  <!-- Step 3: Add Firebase SDKs and initialize Firebas
+  	Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-         https://firebase.google.com/docs/web/setup#available-libraries -->
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
 
-  <h1>Test Firebase</h1>
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <!-- <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-analytics.js"></script> -->
 
-  <form id="dbtFormCh1">
-            <h2>Chapter 1 - Basic Distress Tolerance Skills</h2>
-            
-            <div class="dbtExercisesApp">
-      <h4>Q2: Cost of self-destructive coping strats</h4>
-            <p>
-                Linking to Q1 - display the possible costs for the selected coping mechanisms.
-                All those strategies are simply pathways into deeper pain, offering only temporary relief.
-                Note the strategies you use and their costs - and add any costs that you can think of on your own.
-            </p>
-              <!-- Question 2 answer area -->
-            <!-- Part 1: Past errors and mistakes -->
-            <p>
-                <b>I spend a lot of time thinking over past errors and mistakes.</b><br>
-                You might miss good things in the present, and regret missing them as well, compounding the problem. 
-                You might end up having depression about the past.
-            </p>
-            <textarea name="costsPastErrorsAndMistakes" id="ch1_q1_costsPastErrorsAndMistakes" rows="10" cols="70"></textarea>
-            <br>
-            <button id="submitBtn" type="submit">Submit</button>
+  <!-- Add Firebase products that you want to use -->
+  <!-- <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script> -->
+  <!-- this is for cloud firestore db - causes error if u dont include it! TypeError: firebase.firestore is not a function -->
+  <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+  <!-- Previously loaded Firebase SDKs -->
 
-             </form>
-           </div>
+<script type="text/javascript" src="app.js"></script>
 
-            <script>
-           let name="";
-            function init() {
-              name = prompt("Please enter your name");
-            }
-            //is abvoe { is right place ??
-            document.addEventListener('DOMContentLoaded', init);
+<div>
+  <p id="listUsers">user content</p>
+  <p id="listUsers2">user content2</p>
 
-            dbtForm.addEventListener('submit', saveExercise);
-            </script>
+</div>
 
-    <!-- firebase sdk link goes here -->
-    <script type="text/javascript" src="app.js"></script>
+<script>
+  var listUserOutput = document.getElementById('listUsers').innerHTML = "testig";
+  var stringUsers =  "listUsers2222";
 
-</body>
+  // get all users from db iterate over values 
+  db.collection("users").get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+        // console.log(`${doc.id} => ${doc.data()}`);
+        // how to get unique id, docRef.id that firebase generates
+        console.log(doc.id);
+        let tempUser = doc.data();
+        console.log(tempUser.fullName);
+        console.log(tempUser.nickName);
+        console.log(tempUser.overallScore);
+        console.log(tempUser.streaks);
+        stringUsers = tempUser.first + tempUser.last + tempUser.born;
+        //this syntax also works
+        // console.log("first: " + tempUser["first"]);
+    });
+    //the later user over rides the first user
+    var listUserOutput2 = document.getElementById('listUsers2').innerHTML = stringUsers;
+  });
+
+</script>
+
+ </body>
 </html>
