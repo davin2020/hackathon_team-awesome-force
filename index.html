@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Test Firebase DB</title>
+</head>
+
+<body>
+  <!-- Add Firebase SDKs and initialize Firebas
+  	Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <!-- <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-analytics.js"></script> -->
+  <!-- Add Firebase products that you want to use -->
+  <!-- <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script> -->
+
+  <!-- this is for cloud firestore db - causes error if u dont include it! TypeError: firebase.firestore is not a function -->
+  <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+  <!-- Previously loaded Firebase SDKs -->
+
+  <!-- include our custom Javascript functions -->
+  <script type="text/javascript" src="app.js"></script>
+
+
+  <h1>Test Firebase Online Database</h1>
+  <div>
+    <p id="listUsers">user content</p>
+    <p id="listUsers2">user content2</p>
+  </div>
+
+  <script>
+    var listUserOutput = document.getElementById('listUsers').innerHTML = "testig";
+    var stringUsers =  "listUsers2222";
+
+
+      //get a certain user Bobby
+      console.log('....abuot to call  getUser');
+      let userID = "D4fs4shpaaSMAUjnDGwG";
+      //this should be a Promise when returned?
+      let tempUser = getUser(userID);
+      console.log('....finished called getUser ' + tempUser.fullName);
+      // console.log(tempUser.fullName);
+
+      //TODO these really needs a try/catch block
+      getUsers();
+      // getExercises();
+
+      // get exericse by id
+      let exID = "7V1WCY9W41alhmRKhYUL";
+      let tempExercise = getExercise(exID);
+      console.log('called getExercises');
+
+  </script>
+
+</body>
+</html>
