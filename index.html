@@ -47,23 +47,61 @@
   var stringUsers =  "listUsers2222";
 
   // get all users from db iterate over values 
-  db.collection("users").get().then((querySnapshot) => {
+  // db.collection("users").get().then((querySnapshot) => {
+  //   querySnapshot.forEach((doc) => {
+  //       // console.log(`${doc.id} => ${doc.data()}`);
+  //       // how to get unique id, docRef.id that firebase generates
+  //       console.log(doc.id);
+  //       let tempUser = doc.data();
+  //       console.log(tempUser.fullName);
+  //       console.log(tempUser.nickName);
+  //       console.log(tempUser.overallScore);
+  //       console.log(tempUser.streaks);
+  //       stringUsers = tempUser.first + tempUser.last + tempUser.born;
+  //       //this syntax also works
+  //       // console.log("first: " + tempUser["first"]);
+  //   });
+  //   //the later user over rides the first user
+  //   var listUserOutput2 = document.getElementById('listUsers2').innerHTML = stringUsers;
+  // });
+
+
+// get exercises - working ok
+  async function getExercises() {
+    const querySnapshot = await db.collection("exercises").get();
     querySnapshot.forEach((doc) => {
-        // console.log(`${doc.id} => ${doc.data()}`);
-        // how to get unique id, docRef.id that firebase generates
+        console.log('INSIDE getExercises')
         console.log(doc.id);
-        let tempUser = doc.data();
-        console.log(tempUser.fullName);
-        console.log(tempUser.nickName);
-        console.log(tempUser.overallScore);
-        console.log(tempUser.streaks);
-        stringUsers = tempUser.first + tempUser.last + tempUser.born;
-        //this syntax also works
-        // console.log("first: " + tempUser["first"]);
+        let currentExercise = doc.data();
+        console.log('Num ' + currentExercise.exerciseNumber);
+        console.log('Type ' + currentExercise.exerciseType);
+        console.log('Level ' + currentExercise.level);
+        console.log('Module ' + currentExercise.moduleName);
+        console.log('Points ' + currentExercise.points);
+        //need to iterate over this!
+        console.log('Questions ' + currentExercise.questionArray);
     });
-    //the later user over rides the first user
-    var listUserOutput2 = document.getElementById('listUsers2').innerHTML = stringUsers;
-  });
+    
+      // const newExerciseAdded = await db.collection("exercises").add(newExercise)
+      // console.log("the new exercise:", newExerciseAdded)
+      // console.log("its id:", newExerciseAdded.id)
+      //do i need catch?
+    }
+
+      //get a scertain user Bobby
+    console.log('....abuot to call  getUser');
+    let userID = "D4fs4shpaaSMAUjnDGwG";
+    //this should be a Promise when returned?
+    let tempUser = getUser(userID);
+    console.log('....finished called getUser ' + tempUser.fullName);
+    // console.log(tempUser.fullName);
+
+    // getExercises();
+
+
+    let exID = "7V1WCY9W41alhmRKhYUL";
+    let tempExercise = getExercise(exID);
+    console.log('called getExercises');
 
 </script>
 

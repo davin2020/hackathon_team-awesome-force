@@ -30,8 +30,6 @@
 	//     console.error("Error adding document: ", error);
 	// });
 
-console.log('added user 1');
-
 // Add a second document with a generated ID.
 // db.collection("users").add({
 //     first: "Alanertertre",
@@ -74,14 +72,73 @@ console.log('added user 1');
 //     console.error("Error adding document: ", error);
 // });
 
-let newUser1 = {
-	userId: "276574",
-    fullName: "Haru Kuusdsfsdf",
-    nickName: "Harusfdsfdsfsdf",
-    overallScore: 387,
-    streaks: 1
-}
-addUser(newUser1)
+
+
+
+
+	// ADD new user usig asyn await
+// let newUser1 = {
+// 	userId: "276574",
+//     fullName: "Haru Kuusdsfsdf",
+//     nickName: "Harusfdsfdsfsdf",
+//     overallScore: 387,
+//     streaks: 1
+// }
+// addUser(newUser1)
+
+
+
+
+	// ADD exercises
+	let exercise1 = {
+    	exerciseType: "checkbox",
+    	moduleName:"Basic Distress Tolerance Skills",
+    	level: "Basic",
+    	introText: "People struggling with overwhelming emotions often use very self-destructive unhealthy methods to attempt to deal with it. Unfortunately, these are often unsuccessful and only make the problem worse. Here are some common ones, select any ones you use.",
+    	points: 5,
+    	//will be simpler to access & do Q numbers really matter?
+    	questionArray: 
+    	[
+		    "I spend a lot of time thinking over past errors and mistakes",
+		    "I use alcohol and drugs to numb myself",
+		    "I avoid dealing with the causes of my problems, like bad relationships",
+		    "I use food to punish myself, for example by either over or undereating",
+		    "I avoid nice things, because I don’t think I deserve to feel good"
+		]
+	}
+
+let exercise2 = {
+	exerciseType: "textbox",
+    moduleName: "Basic Distress Tolerance Skills",
+    exerciseNumber: 2,
+    level: "Basic",
+    introText: "All those strategies are simply pathways into deeper pain, offering only temporary relief. Note the strategies you use and their costs - and add any costs that you can think of on your own.",
+        points: 10,
+    questionArray: 
+    	[
+		    "Example - I spend a lot of time thinking over past errors and mistakes. Consequence are - You might miss good things in the present, and regret missing them as well, compounding the problem. You might end up having depression about the past. Can you think of other consequence?",
+		    "Example - I use alcohol and drugs to numb myself. Consequences are - You might get addicted, lose a lot of money, have problems at work, problems with relationships. Drugs and alcohol can also have serious health consequences.Can you think of other consequence?",
+		     "Example - I avoid dealing with the causes of my problems, like bad relationships. Consequences are - You might put up with destructive relationships, or get burned-out doing work for other people. This can often lead to not having your own needs met, and depression.",
+		     "Example - I use food to punish myself, for example by either over or undereating. Consequences are - You might have medical issues caused by weight gain, or issues such as bulimia or anorexia. Other consequences include feeling shame or embarrassment.",
+		    "Example - I avoid nice things, because I don’t think I deserve to feel good. Consequences are - This can lead to lack of enjoyment or lack of exercise, leading to depression, shame, or even depression."
+		]
+	}
+	
+    //array of objs?
+    // questionId: 2
+    // questionText: "I use alcohol and drugs to numb myself"
+
+
+	// addExercise(exercise2);
+
+
+
+
+
+
+
+
+
 
 //better way to add users
 // And if you only want the id it can be grabbed using descructuring. Destructuring allows you to grab any key/value-pair in the response:
@@ -95,21 +152,73 @@ addUser(newUser1)
       const newUserAdded = await db.collection("users").add(newUser)
       console.log("the new user:", newUserAdded)
       console.log("their id:", newUserAdded.id)
-      // return id created!
       //do i need catch?
     }
 
+	async function addExercise(newExercise) {
+      const newExerciseAdded = await db.collection("exercises").add(newExercise)
+      console.log("the new exercise:", newExerciseAdded)
+      console.log("its id:", newExerciseAdded.id)
+      //do i need catch?
+    }
 
+    
 
+    async function getUser(userID) {
+    	// var x = await db.collection("users").doc("userID");
+
+    	// var y = x.get();
+    	// console.log(y);
+    	// console.log(y.data);
+
+    	// var docRef = await db.collection("users").doc("userID").get();
+    	// console.log("docRef:", docRef);
+    	
+    	// // let tempUser = docRef.get();
+    	// let tempUser = docRef.data();
+    	// console.log(" tempUser " + tempUser);
+
+    	var zzz = await db.collection("users").doc(userID).get();
+    	if (zzz.exists) {
+    		console.log(" YAY " + zzz.data());
+    		let tempUser = zzz.data();
+    		//this works but how to get the user object out of this func and to the console?
+    		console.log('....fullname ' + tempUser.fullName);
+    		return zzz.data();
+    	} 
+    	throw new Error("no such doc");
+
+    	// zzz.get("nickname")
+	    // const querySnapshot = await db.collection("users").doc(userID).get();
+	    // console.log("Document data:", doc.data());
+
+	    
+      // const newExerciseAdded = await db.collection("exercises").add(newExercise)
+      // console.log("the new exercise:", newExerciseAdded)
+      // console.log("its id:", newExerciseAdded.id)
+      //do i need catch?
+    }
+
+async function getExercise(exerciseID) {
+    var doc = await db.collection("exercises").doc(exerciseID).get();
+    	if (doc.exists) {
+    		console.log(" YAY exercise " + doc.data());
+    		let tempEx = doc.data();
+    		//this works but how to get the user object out of this func and to the console? - maybe construct an objs and pass that back ? check knowsys site!
+    		console.log('....exerciseType ' + tempEx.exerciseType);
+    		return doc.data();
+    	} 
+    	throw new Error("no such doc");
+}
 
 
 //get all itesm out of collection 
-db.collection("users").get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${doc.data()}`);
+// db.collection("users").get().then((querySnapshot) => {
+//     querySnapshot.forEach((doc) => {
+//         console.log(`${doc.id} => ${doc.data()}`);
 
-    });
-});
+//     });
+// });
 
 // Uncaught TypeError: firebase.database is not a function
 // const dbRef = firebase.database().ref();
@@ -124,42 +233,3 @@ db.collection("users").get().then((querySnapshot) => {
 
 
 
-
-
-	// exercises
-// 	db.collection("exercises").add({
-//     exerciseId: "12345"
-//     exerciseType: "checkbox"
-//     moduleName:"Basic Distress Tolerance Skills"
-//     level: "Basic"
-//     introText: “People struggling with overwhelming emotions often use very self-destructive unhealthy methods to attempt to deal with it. Unfortunately, these are often unsuccessful and only make the problem worse. Here are some common ones, select any ones you use.”
-//     [
-//     questionId: 1
-//     questionText: "I spend a lot of time thinking over past errors and mistakes"
-//     questionId: 2
-//     questionText: "I use alcohol and drugs to numb myself"
-//     questionId: 3
-//     questionText: "I avoid dealing with the causes of my problems, like bad relationships"
-//     questionId: 4
-//     questionText: "I use food to punish myself, for example by either over or undereating"
-//     questionId: 5
-//     questionText: "I avoid nice things, because I don’t think I deserve to feel good"
-//     ]
-
-// //arrays or objs
-//     [
-//     question1Text: "I spend a lot of time thinking over past errors and mistakes",
-//     question2Text: "I use alcohol and drugs to numb myself",
-//     question3Text: "I avoid dealing with the causes of my problems, like bad relationships",
-//     question4Text: "I use food to punish myself, for example by either over or undereating",
-//     question5Text: "I avoid nice things, because I don’t think I deserve to feel good"
-//     ]
-
-//     points: 5
-// })
-// .then((docRef) => {
-//     console.log("Document written with ID: ", docRef.id);
-// })
-// .catch((error) => {
-//     console.error("Error adding document: ", error);
-// });
