@@ -97,12 +97,14 @@
     		updateElement("exerciseNum", "Number: "+ tempEx.exerciseNumber);
     		updateElement("exercisePoints", "Points: "+ tempEx.points);
     		//TODO need to consider exerciseType, and 
-    		if (tempEx.exerciseType = "checkbox") {
+    		if (tempEx.exerciseType == "checkbox") {
     			let result = arrayToCheckbox(tempEx.questionArray, tempEx.exerciseNumber);
     			updateElement("exerciseQuestions", result);
     		}
-    		else {
-    			//TODO create html textboxes
+    		else if (tempEx.exerciseType == "textbox") {
+    			// create html textboxes
+				let result = arrayToTextarea(tempEx.questionArray, tempEx.exerciseNumber);
+    			updateElement("exerciseQuestions", result);
     		}
     		//fyi tried to use appendChild() option but couldnt get it working, so stuck with getElementById()
     		return doc.data(); //must returns obj
@@ -136,13 +138,26 @@
     		let tempName = "ex"+ exerciseId +"q" + i;
     		// console.log(tempName);
     		arrayAsCheckbox += 
-    		"<label>" + arrayItems[i] 
-    		+ "<input type='checkbox' id='"+tempName
+    		"<label><input type='checkbox' id='"+tempName
     		+"' name='"+ tempName 
-    		+ "' value='"+tempName+"'>" 
+    		+ "' value='"+tempName+"'>"  
+			+ arrayItems[i] 
     		+"</label><br>";
     	}
     	return arrayAsCheckbox;
+    }
+
+	function arrayToTextarea(arrayItems, exerciseId) {
+    	let arrayAsTextarea = "";
+    	for(let i = 0; i < arrayItems.length; i++){
+    		//this is 'exericse1 question2' or ex1q1 etc - may need to adjust for ohter array items??
+    		let tempName = "ex"+ exerciseId +"q" + i;
+    		// console.log(tempName);
+    		arrayAsTextarea += 
+    		"<label>" + arrayItems[i] + "</label><br>"
+			+"<textarea id='" + tempName + "' name='" + tempName + "' rows='10' cols='70'></textarea><br><br>";
+    	}
+    	return arrayAsTextarea;
     }
 
 
