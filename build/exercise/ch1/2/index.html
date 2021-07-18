@@ -14,6 +14,8 @@
 </head>
 
 <body>
+
+    <!-- Header bar stuff -->
     <header id="head" class=" text-gray-600 header-font ">
         <div class="mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center bg-sunglow-500 ">
             <a class="flex title-font font-medium items-center text-green-900 mb-4 md:mb-0 ">
@@ -45,6 +47,8 @@
             }
         })
     </script>
+
+    <!-- Question Intro -->
 
     <section id="app" class="text-gray-600 header-font">
         <div class="grid pt-8 justify-center justify-items-center">
@@ -83,16 +87,17 @@
                 </div>
             </div>
 
-            <!-- https://play.tailwindcss.com/Q5J6QPZQ1i -->
+            <!-- Text box items -->
             <div class="p-2 lg:w-2/3 md:w-2/3" v-for="(choice,index) in statements" :key="choice">
                 <div class=" bg-gray-100 rounded-3xl p-6 flex flex-col w-full mt-6">
                     <div class="text-gray-900 text-lg font-medium title-font">{{ choice }}</div>
                     <div class="relative mt-4">
-                        <input type="email" id="" name="email" placeholder="Write any other potential consequences you can think of" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                        <input v-bind:id="index" type="text" placeholder="Write any other potential consequences you can think of" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                     </div>
                 </div>
             </div>
 
+            <!-- Submit button -->
             <div class="p-2 lg:w-2/3 md:w-2/3 justify-end">
                 <button class="
                   flex
