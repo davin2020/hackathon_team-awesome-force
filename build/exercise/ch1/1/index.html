@@ -88,24 +88,26 @@
 
                 </div>
             </div>
+
+            <div class="p-2 pt-4 sm:w-2/3 w-full">
+                <button class="
+                  flex
+                  ml-auto
+                  text-gray-600
+                  bg-sunglow-500
+                  border-0
+                  py-2
+                  px-6
+                  focus:outline-none
+                  hover:bg-sunglow-600
+                  hover:text-gray-900
+                  rounded
+                ">
+                Submit <span v-if="value > 0" onclick="window.location.href='../2'">&nbsp;(+{{ value }} points!)</span>
+              </button>
+            </div>
         </div>
-        <div class="p-2 pt-4 sm:w-2/3 w-full">
-            <button class="
-              flex
-              ml-auto
-              text-gray-600
-              bg-sunglow-500
-              border-0
-              py-2
-              px-6
-              focus:outline-none
-              hover:bg-sunglow-600
-              hover:text-gray-900
-              rounded
-            ">
-            Submit <span v-if="value > 0" onclick="window.location.href='../2'">&nbsp;(+{{ value }} points!)</span>
-          </button>
-        </div>
+
     </section>
 
     <script>
