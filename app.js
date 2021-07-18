@@ -97,11 +97,11 @@
     		updateElement("exerciseNum", "Number: "+ tempEx.exerciseNumber);
     		updateElement("exercisePoints", "Points: "+ tempEx.points);
     		//TODO need to consider exerciseType, and 
-    		if (tempEx.exerciseType = "checkbox") {
+    		if (tempEx.exerciseType == "checkbox") {
     			let result = arrayToCheckbox(tempEx.questionArray, tempEx.exerciseNumber);
     			updateElement("exerciseQuestions", result);
     		}
-    		else if (tempEx.exerciseType = "textbox") {
+    		else if (tempEx.exerciseType == "textbox") {
     			// create html textboxes
 				let result = arrayToTextarea(tempEx.questionArray, tempEx.exerciseNumber);
     			updateElement("exerciseQuestions", result);
