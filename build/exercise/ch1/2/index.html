@@ -63,15 +63,17 @@
             sm:mb-2
             mx-2
           ">
-            <div class="p-2 sm:w-2/3 w-full" v-for="(choice,index) in statements" :key="choice">
-                <div class="bg-gray-100 rounded flex p-4 h-full items-center">
-                    <input v-bind:id="index" class="text-gray-300 w-6 h-6 flex-shrink-0 mr-4" viewBox="0 0 24 24" type="checkbox">
-                    <span class="title-font font-medium text-left">{{ choice }}</span>
-
+            <!-- https://play.tailwindcss.com/Q5J6QPZQ1i -->
+            <div class="p-2 lg:w-2/3 md:w-2/3" v-for="(choice,index) in statements" :key="choice">
+                <div class=" bg-gray-100 rounded-3xl p-6 flex flex-col w-full mt-6">
+                    <div class="text-gray-900 text-lg font-medium title-font">{{ choice }}</div>
+                    <div class="relative mt-4">
+                        <input type="email" id="" name="email" placeholder="Write any other potential consequences you can think of" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="p-2 pt-4 sm:w-2/3 w-full">
+        <div class="p-2 lg:w-2/3 md:w-2/3 justify-end">
             <button class="
               flex
               ml-auto
@@ -103,16 +105,14 @@
                 }
             },
             mounted() {
-                getExercise("oVg1icfURf9aFbNbf3TC").then(response => {
-                        console.log(response);
-                        this.heading = response.moduleName;
-                        this.title = response.level;
-                        this.intro = response.introText;
-                        this.statements = response.questionArray
-                        this.value = response.points
-                    }
-
-                )
+                getExercise("7V1WCY9W41alhmRKhYUL").then(response => {
+                    console.log(response);
+                    this.heading = response.moduleName;
+                    this.title = response.level;
+                    this.intro = response.introText;
+                    this.statements = response.questionArray
+                    this.value = response.points
+                })
             }
         })
     </script>
