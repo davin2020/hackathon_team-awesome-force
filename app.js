@@ -33,40 +33,42 @@
 
     // DB GET FUNCTIONS
 
+    // TODO - replace all console.log with updateElement, like in getExercise(), but based off the relevant webpage fields/tags
     // get all users from db iterate over values 
     async function getUsers() {
     	const querySnapshot = await db.collection("users").get();
       	querySnapshot.forEach((doc) => {
       		//doc.id is unique refernce that firebase generates
-          console.log(doc.id);
+          // console.log(doc.id);
           let tempUser = doc.data();
           console.log(tempUser.fullName);
           console.log(tempUser.nickName);
           console.log(tempUser.overallScore);
           console.log(tempUser.streaks);
-          stringUsers = tempUser.fullName + tempUser.overallScore;
+          // stringUsers = tempUser.fullName + tempUser.overallScore;
       });
       //the later user over rides the first user
-      var listUserOutput2 = document.getElementById('listUsers2').innerHTML = stringUsers;
+      // var listUserOutput2 = document.getElementById('listUsers2').innerHTML = stringUsers;
+      // return stringUsers;
     };
 
+    // TODO - replace all console.log with updateElement, like in getExercise(), but based off the relevant webpage fields/tags
     async function getUser(userID) {
     	var docUser = await db.collection("users").doc(userID).get();
     	if (docUser.exists) {
     		// console.log(" YAY " + docUser.data());
     		let tempUser = docUser.data();
-    		//this works but how to get the user object out of this func and back to browser or console?
     		console.log('....YAY found user with fullname ' + tempUser.fullName);
     		return docUser.data();
     	} 
     	throw new Error("No such user doc found");
     }
 
-  	// get exercises - working ok
+  	// TODO - replace all console.log with updateElement, like in getExercise(), but based off the relevant webpage fields/tags
     async function getExercises() {
     	const querySnapshot = await db.collection("exercises").get();
     	querySnapshot.forEach((doc) => {
-          console.log('INSIDE getExercises')
+          // console.log('INSIDE getExercises')
           console.log(doc.id);
           let currentExercise = doc.data();
           console.log('Num ' + currentExercise.exerciseNumber);
@@ -77,19 +79,37 @@
           //TODO need to iterate over this array!
           console.log('Questions ' + currentExercise.questionArray);
       });
+    	//return item as obj?
     }
 
+
+	// IMPORTANT TEMPLATE CODE
 	async function getExercise(exerciseID) {
 	    var doc = await db.collection("exercises").doc(exerciseID).get();
     	if (doc.exists) {
-    		console.log(" YAY exercise " + doc.data());
+    		// console.log(" YAY exercise2 " + doc.data());
     		let tempEx = doc.data();
-    		//this works but how to get the user object out of this func and to the console? - maybe construct an objs and pass that back ? check knowsys site!
-    		console.log('....YAY found Exercise with exerciseType ' + tempEx.exerciseType);
-    		return doc.data();
-    	} 
+    		console.log('....YAY found Exercise2 with exerciseType ' + tempEx.exerciseType);
+    		//updte ALL the relevant html tags on teh relevant web page
+    		updateElement("exerciseModule", tempEx.moduleName);
+    		updateElement("exerciseIntro", tempEx.introText);
+    		updateElement("exerciseLevel", "Level: "+ tempEx.level);
+    		updateElement("exerciseNum", "Number: "+ tempEx.exerciseNumber);
+    		updateElement("exercisePoints", "Points: "+ tempEx.points);
+    		//TODO need to consider exerciseType, and 
+    		if (tempEx.exerciseType = "checkbox") {
+    			let result = arrayToCheckbox(tempEx.questionArray, tempEx.exerciseNumber);
+    			updateElement("exerciseQuestions", result);
+    		}
+    		else {
+    			//TODO create html textboxes
+    		}
+    		//fyi tried to use appendChild() option but couldnt get it working, so stuck with getElementById()
+    		return doc.data(); //must returns obj
+    	}
     	throw new Error("No such Exercise doc found");
 	}
+
 
 
     // HTML HELPER FUNCTIONS
@@ -99,14 +119,34 @@
     	document.getElementById(elementId).innerHTML = stringContents;
     }
 
-    //convert an array of items into a string, then call updateElement() as requied
+    //convert an array of items into a string, then call updateElement() using the returned string
     function arrayToString(arrayItems) {
     	let arrayAsString = "";
-    	//for each item in array
-    	//create li tags, and output item.fieldName
+    	arrayItems.forEach(item =>
+    		arrayAsString += item + ". ")
     	return arrayAsString;
     }
 
+    //convert an array of items into a html checkbox, then call updateElement() using the returned string
+	//issue - not sure what to use for value field of htm checkbox?
+    function arrayToCheckbox(arrayItems, exerciseId) {
+    	let arrayAsCheckbox = "";
+    	for(let i = 0; i < arrayItems.length; i++){
+    		//this is 'exericse1 question1' or ex1q1 etc - may need to adjust for ohter array items??
+    		let tempName = "ex"+ exerciseId +"q" + i;
+    		// console.log(tempName);
+    		arrayAsCheckbox += 
+    		"<label>" + arrayItems[i] 
+    		+ "<input type='checkbox' id='"+tempName
+    		+"' name='"+ tempName 
+    		+ "' value='"+tempName+"'>" 
+    		+"</label><br>";
+    	}
+    	return arrayAsCheckbox;
+    }
+
+
+    // IGNORE STUFF BELOW HERE :)
 
     // CREATE DATA FOR DB
 

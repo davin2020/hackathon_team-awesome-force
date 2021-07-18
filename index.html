@@ -31,27 +31,48 @@
     <p id="listUsers2">user content2</p>
   </div>
 
+<h2 id="exModule">Module - </h2>
+
+  <h2>Exercise 1</h2>
+    <div id="exerciseDiv">
+
+    </div>
+
+    <div id="exerciseDiv2">
+
+    </div>
+
+
+    <br>
+    <!-- IMPORTANT TEMPLATE CODE -->
+    <div id="testExercise">
+      <!-- module, level -->
+      <h2 id="exerciseModule">Module - </h2>
+      <p id="exerciseLevel">Level</p>
+      <!-- intro & other db fields - TODO update html tags to be more suitable if required -->
+      <p id="exerciseIntro">Intro</p>
+      <p id="exerciseNum">Number</p>
+      <p id="exercisePoints">Points</p>
+      <!-- this gets replaced with an array of dynamically genearted checkoxes - ISSUe exercise2 needs textareas instead -->
+      <p id="exerciseQuestions">exerciseQuestions</p>
+    </div>
+
   <script>
-    var listUserOutput = document.getElementById('listUsers').innerHTML = "testig";
-    var stringUsers =  "listUsers2222";
 
 
-      //get a certain user Bobby
-      console.log('....abuot to call  getUser');
-      let userID = "D4fs4shpaaSMAUjnDGwG";
-      //this should be a Promise when returned?
-      let tempUser = getUser(userID);
-      console.log('....finished called getUser ' + tempUser.fullName);
-      // console.log(tempUser.fullName);
+      // get the first exercise
+      getExercise("oVg1icfURf9aFbNbf3TC");
+
+      // get the second exercise - needs its own webpage, otherwise overwrites contents of first exercise as it uses the same html tags
+      // getExercise("7V1WCY9W41alhmRKhYUL");
+
 
       //TODO these really needs a try/catch block
-      getUsers();
-      // getExercises();
+      //get all users  - displays in console only
+      // getUsers();
+      //get all exercises  - displays in console only
+      //getExercises();
 
-      // get exericse by id
-      let exID = "7V1WCY9W41alhmRKhYUL";
-      let tempExercise = getExercise(exID);
-      console.log('called getExercises');
 
   </script>
 
