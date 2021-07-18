@@ -54,22 +54,7 @@
             <p class="text-lg">{{ title }}</p>
         </div>
 
-        <div class="p-4">
-            <div class="
-              h-full
-              bg-gray-50 bg-opacity-75
-              px-8
-              py-3
-              rounded-lg
-              overflow-hidden
-              text-center
-              relative
-            ">
-                <p class="leading-relaxed">
-                    {{ intro }}
-                </p>
-            </div>
-        </div>
+
 
         <div class="
             grid grid-cols-1
@@ -80,6 +65,24 @@
             sm:mb-2
             mx-2
           ">
+
+            <div class="p-2 lg:w-2/3 md:w-2/3">
+                <div class="
+              h-full
+              bg-gray-50 bg-opacity-75
+              px-8
+              py-3
+              rounded-lg
+              overflow-hidden
+              text-center
+              relative
+            ">
+                    <p class="leading-relaxed">
+                        {{ intro }}
+                    </p>
+                </div>
+            </div>
+
             <!-- https://play.tailwindcss.com/Q5J6QPZQ1i -->
             <div class="p-2 lg:w-2/3 md:w-2/3" v-for="(choice,index) in statements" :key="choice">
                 <div class=" bg-gray-100 rounded-3xl p-6 flex flex-col w-full mt-6">
@@ -104,7 +107,7 @@
                   hover:text-gray-900
                   rounded
                 ">
-                Submit <span v-if="value > 0">&nbsp;(+{{ value }} points!)</span>
+                Submit <span v-if="value > 0" onclick="window.location.href='../../../'">&nbsp;(+{{ value }} points!)</span>
               </button>
             </div>
 

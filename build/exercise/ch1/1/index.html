@@ -55,22 +55,6 @@
             <p class="text-lg">{{ title }}</p>
         </div>
 
-        <div class="p-4">
-            <div class="
-              h-full
-              bg-gray-50 bg-opacity-75
-              px-8
-              py-3
-              rounded-lg
-              overflow-hidden
-              text-center
-              relative
-            ">
-                <p class="leading-relaxed">
-                    {{ intro }}
-                </p>
-            </div>
-        </div>
 
         <div class="
             grid grid-cols-1
@@ -81,6 +65,23 @@
             sm:mb-2
             mx-2
           ">
+
+            <div class="p-2 lg:w-2/3 md:w-2/3">
+                <div class="
+          h-full
+          bg-gray-50 bg-opacity-75
+          px-8
+          py-3
+          rounded-lg
+          overflow-hidden
+          text-center
+          relative
+        ">
+                    <p class="leading-relaxed">
+                        {{ intro }}
+                    </p>
+                </div>
+            </div>
             <div class="p-2 sm:w-2/3 w-full" v-for="(choice,index) in statements" :key="choice">
                 <div class="bg-gray-100 rounded flex p-4 h-full items-center">
                     <input v-bind:id="index" class="text-gray-300 w-6 h-6 flex-shrink-0 mr-4" viewBox="0 0 24 24" type="checkbox">
