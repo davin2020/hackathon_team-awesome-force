@@ -124,7 +124,18 @@
                 add: function(event) {
                     (async() => {
                         let x = await addPoints('N7suCL0ALbhRAGFDWg5E', this.value)
-                        console.log(x)
+                        console.log(x);
+                        let userAnswersPhillip = {
+                            userId: "N7suCL0ALbhRAGFDWg5E",
+                            dateCompleted: new Date(),
+                            exerciseId: "oVg1icfURf9aFbNbf3TC",
+                            questionArray: [0, 1, 0, 0, 1],
+                            pointGained: 5
+                        }
+                        //add stuff to db
+                        console.log("about to add answers to db")
+                        //ISSUE this isnt being called at all, neither is addPoints
+                        addAnswer(userAnswersPhillip);
                         window.location.href = '../2/'
                     })()
                 }
