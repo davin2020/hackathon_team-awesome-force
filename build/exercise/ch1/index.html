@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+    <script type="text/javascript" src="../../app.js"></script>
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body>
+    <header class=" text-gray-600 header-font ">
+        <div class="mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center bg-sunglow-500 ">
+            <a class="flex title-font font-medium items-center text-green-900 mb-4 md:mb-0 ">
+                <span class="ml-3 text-xl font-lemtitle font-black ">Lemonie</span>
+                <span class="ml-3 text-l font-normal ">Self reflection for recovery</span>
+            </a>
+            <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center uppercase ">
+                <a class="mr-5 hover:text-gray-900 ">Dashboard</a>
+                <a class="mr-5 hover:text-gray-900 ">Resources</a>
+                <a class="mr-5 hover:text-gray-900 ">About</a>
+                <a class="mr-5 hover:text-gray-900 ">Profile</a>
+            </nav>
+        </div>
+    </header>
+
+    <section id="app" class="text-gray-600 header-font">
+        <div class="grid pt-8 justify-center justify-items-center">
+            <h1 class="text-green-900 text-2xl font-lemtitle font-semibold">
+                {{ heading }}
+            </h1>
+            <p class="text-lg">{{ title }}</p>
+        </div>
+
+        <div class="p-4">
+            <div class="
+              h-full
+              bg-gray-50 bg-opacity-75
+              px-8
+              py-3
+              rounded-lg
+              overflow-hidden
+              text-center
+              relative
+            ">
+                <p class="leading-relaxed">
+                    {{ intro }}
+                </p>
+            </div>
+        </div>
+
+        <div class="
+            grid grid-cols-1
+            justify-center justify-items-center
+            my-4
+            lg:w-4/5
+            sm:mx-auto
+            sm:mb-2
+            mx-2
+          ">
+            <div class="p-2 sm:w-2/3 w-full" v-for="choice in statements" :key="choice">
+                <div class="bg-gray-100 rounded flex p-4 h-full items-center">
+                    <input v-bind:id="choice.id" class="text-gray-300 w-6 h-6 flex-shrink-0 mr-4" viewBox="0 0 24 24" type="checkbox">
+                    <span class="title-font font-medium text-left">{{ choice.text }}</span>
+
+                </div>
+            </div>
+        </div>
+        <div class="p-2 pt-4 sm:w-2/3 w-full">
+            <button class="
+              flex
+              ml-auto
+              text-gray-600
+              bg-sunglow-500
+              border-0
+              py-2
+              px-6
+              focus:outline-none
+              hover:bg-sunglow-600
+              hover:text-gray-900
+              rounded
+            ">
+            Submit (+5 points!)
+          </button>
+        </div>
+    </section>
+
+    <script>
+        var blankData = {
+            heading: "Distress Tolerance",
+            title: "Chapter 1 - Basic Skills",
+            intro: "People struggling with overwhelming emotions often use very self-destructive unhealthy methods to attempt to deal with it. Unfortunately, these are often unsuccessful and only make the problem worse. \n Here are some common ones, select any ones you use.",
+            statements: [{
+                id: "1",
+                text: "I spend a lot of time thinking over past errors and mistakes"
+            }, {
+                id: "2",
+                text: "I use alcohol and drugs to numb myself"
+            }, {
+                id: "3",
+                text: "I avoid dealing with the causes of my problems, like bad relationships"
+            }, {
+                id: "4",
+                text: "I use food to punish myself, for example by either over or undereating"
+            }, {
+                id: "5",
+                text: "I avoid nice things, because I don’t think I deserve to feel good"
+            }, ],
+        }
+
+        console.log(user)
+        var exData = getExercise("oVg1icfURf9aFbNbf3TC")
+        const user = fetch("https://jsonplaceholder.typicode.com/users/1").then((response) => response.json()).then((user) => {
+            return user;
+        })
+        console.log(exData)
+        console.log(user)
+        var app = new Vue({
+            el: '#app',
+            data: blankData
+        })
+    </script>
+
+
+</body>
+
+</html>

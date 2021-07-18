@@ -1,0 +1,26 @@
+{
+    "name": "hackathon_team-awesome-force",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "postcss css/styles.css -o build/styles.css"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/davin2020/hackathon_team-awesome-force.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/davin2020/hackathon_team-awesome-force/issues"
+    },
+    "homepage": "https://github.com/davin2020/hackathon_team-awesome-force#readme",
+    "dependencies": {
+        "autoprefixer": "^10.3.1",
+        "postcss-cli": "^8.3.1",
+        "tailwindcss": "^2.2.4"
+    }
+}
