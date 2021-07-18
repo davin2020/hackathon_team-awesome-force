@@ -9,8 +9,8 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
-    <script type="text/javascript" src="../../app.js"></script>
-    <link rel="stylesheet" href="../../styles.css">
+    <script type="text/javascript" src="../../../app.js"></script>
+    <link rel="stylesheet" href="../../../styles.css">
 </head>
 
 <body>
@@ -63,9 +63,9 @@
             sm:mb-2
             mx-2
           ">
-            <div class="p-2 sm:w-2/3 w-full" v-for="choice in statements" :key="choice">
+            <div class="p-2 sm:w-2/3 w-full" v-for="(choice,index) in statements" :key="choice">
                 <div class="bg-gray-100 rounded flex p-4 h-full items-center">
-                    <input v-bind:id="choice.id" class="text-gray-300 w-6 h-6 flex-shrink-0 mr-4" viewBox="0 0 24 24" type="checkbox">
+                    <input v-bind:id="index" class="text-gray-300 w-6 h-6 flex-shrink-0 mr-4" viewBox="0 0 24 24" type="checkbox">
                     <span class="title-font font-medium text-left">{{ choice }}</span>
 
                 </div>
@@ -85,36 +85,12 @@
               hover:text-gray-900
               rounded
             ">
-            Submit (+5 points!)
+            Submit <span v-if="value > 0">&nbsp;(+{{ value }} points!)</span>
           </button>
         </div>
     </section>
 
     <script>
-        var blankData = {
-            heading: "Distress Tolerance",
-            title: "Chapter 1 - Basic Skills",
-            intro: "People struggling with overwhelming emotions often use very self-destructive unhealthy methods to attempt to deal with it. Unfortunately, these are often unsuccessful and only make the problem worse. \n Here are some common ones, select any ones you use.",
-            statements: [{
-                id: "1",
-                text: "I spend a lot of time thinking over past errors and mistakes"
-            }, {
-                id: "2",
-                text: "I use alcohol and drugs to numb myself"
-            }, {
-                id: "3",
-                text: "I avoid dealing with the causes of my problems, like bad relationships"
-            }, {
-                id: "4",
-                text: "I use food to punish myself, for example by either over or undereating"
-            }, {
-                id: "5",
-                text: "I avoid nice things, because I don’t think I deserve to feel good"
-            }, ],
-        }
-
-        var exData =
-            console.log(exData)
         var app = new Vue({
             el: '#app',
             data() {
@@ -122,7 +98,8 @@
                     heading: "heading",
                     title: "title",
                     intro: "intro text",
-                    statements: null
+                    statements: null,
+                    value: 0,
                 }
             },
             mounted() {
@@ -132,6 +109,7 @@
                         this.title = response.level;
                         this.intro = response.introText;
                         this.statements = response.questionArray
+                        this.value = response.points
                     }
 
                 )
