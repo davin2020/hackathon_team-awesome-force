@@ -18,17 +18,26 @@ console.log('testing');
 
 // DB ADD FUNCTIONS
 
+
 async function addUser(newUser) {
-    const newUserAdded = await db.collection("users").add(newUser)
-    console.log("the new user:", newUserAdded)
-    console.log("their id:", newUserAdded.id)
+    addDocumentToCollection(newUser, "users");
 }
 
 async function addExercise(newExercise) {
-    const newExerciseAdded = await db.collection("exercises").add(newExercise)
-    console.log("the new exercise:", newExerciseAdded)
-    console.log("its id:", newExerciseAdded.id)
+    addDocumentToCollection(newExercise, "exercises");
 }
+
+async function addAnswer(newAnswer) {
+    addDocumentToCollection(newAnswer, "answers");
+}
+
+async function addDocumentToCollection(newDocument, collectionName) {
+    console.log("collection: " + collectionName )
+    const newDocAdded = await db.collection(collectionName).add(newDocument)
+    console.log("the new document added:", newDocAdded)
+    console.log("its id:", newDocAdded.id)
+}
+
 
 async function addPoints(userID, addPoints) {
     var docUser = await getUser(userID)
