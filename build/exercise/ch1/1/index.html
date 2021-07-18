@@ -30,7 +30,7 @@
     </header>
 
     <script>
-        varhead = new Vue({
+        var head = new Vue({
             el: '#head',
             data() {
                 return {
@@ -104,7 +104,7 @@
                   hover:text-gray-900
                   rounded
                 ">
-                Submit <span v-if="value > 0" onclick="window.location.href='../2'">&nbsp;(+{{ value }} points!)</span>
+                Submit <span v-if="value > 0" v-on:click="add" >&nbsp;(+{{ value }} points!)</span>
               </button>
             </div>
         </div>
@@ -114,6 +114,16 @@
     <script>
         var app = new Vue({
             el: '#app',
+            methods: {
+                add: function(event) {
+                    (async() => {
+                        //this prints data ok but doenst actually return it
+                        let x = await addPoints('N7suCL0ALbhRAGFDWg5E', this.value)
+                        console.log(x)
+                        window.location.href = '../../../'
+                    })()
+                }
+            },
             data() {
                 return {
                     heading: "heading",

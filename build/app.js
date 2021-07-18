@@ -30,6 +30,36 @@ async function addExercise(newExercise) {
     console.log("its id:", newExerciseAdded.id)
 }
 
+async function addPoints(userID, addPoints) {
+    var docUser = await getUser(userID)
+    let originalPoints = docUser.overallScore;
+    console.log(originalPoints);
+    originalPoints += addPoints;
+    console.log(originalPoints);
+    await db.collection("users").doc(userID).update({ overallScore: originalPoints });
+    return originalPoints;
+}
+
+async function getPoints(userID) {
+    var docUser = await getUser(userID)
+    console.log(docUser.overallScore);
+    return docUser.overallScore;
+}
+
+// db.collection("users").add({
+//             //     first: "Alanertertre",
+//             //     middle: "Mathisonetreter",
+//             //     last: "Turingertertret",
+//             //     born: 1912
+//             // })
+//             // .then((docRef) => {
+//             //     console.log("Document written with ID: ", docRef.id);
+//             // })
+//             // .catch((error) => {
+//             //     console.error("Error adding document: ", error);
+//             // });
+//             // console.log('added user 2');
+
 
 // DB GET FUNCTIONS
 
