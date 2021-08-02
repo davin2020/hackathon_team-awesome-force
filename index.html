@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Test Firebase DB</title>
+  <title>Test Firebase DB - Integration Tests</title>
 </head>
 
 <body>
@@ -44,22 +44,46 @@
     <br>
     <!-- IMPORTANT TEMPLATE CODE -->
     <div id="testExercise">
-      <!-- module, level -->
-      <h2 id="exerciseModule">Module - </h2>
-      <p id="exerciseLevel">Level</p>
-      <!-- intro & other db fields - TODO update html tags to be more suitable if required -->
-      <p id="exerciseIntro">Intro</p>
-      <p id="exerciseNum">Number</p>
-      <p id="exercisePoints">Points</p>
-      <!-- this gets replaced with an array of dynamically genearted checkoxes - ISSUe exercise2 needs textareas instead -->
-      <p id="exerciseQuestions">exerciseQuestions</p>
+      <!-- <form method="get" action="saved.html"> -->
+        <!-- should be post, not get!? submitting to same page doenst work either ?? -->
+      <form method="post" action="saved.html">
+        <h2 id="userNickName">Current User - </h2>
+        <!-- module, level -->
+        <h2 id="exerciseModule">Module - </h2>
+        <p id="exerciseLevel">Level</p>
+        <!-- intro & other db fields - TODO update html tags to be more suitable if required -->
+        <p id="exerciseIntro">Intro</p>
+        <p id="exerciseNum">Number</p>
+        <p id="exercisePoints">Points</p>
+        <!-- this gets replaced with an array of dynamically genearted checkoxes - ISSUe exercise2 needs textareas instead -->
+        <p id="exerciseQuestions">exerciseQuestions</p>
+
+        <!-- <input id="btn" type="submit" value="Submit"> -->
+
+        <button id="submitBtn" type="submit">Submit me</button>
+      </form>
     </div>
 
   <script>
-
+  //submit button must have event listeneres !
+  const submitBtn = document.querySelector('#submitBtn');
+  submitBtn.addEventListener('click', (event) => {
+      
+      let arrayCheckboxIsChecked = getValuesFromForm(event);
+      console.log(arrayCheckboxIsChecked);
+      //how to send this variable to the next page?
+      alert('hya');
+      //  method getValuesFromForm() is being called by saved.html page
+      // alert(getValuesFromForm());
+  });
 
       // get the first exercise
+      getUser('1HWx13Ujkm851OoUGkJ5');
+
       getExercise("oVg1icfURf9aFbNbf3TC");
+
+      //call thsi from saved.html page
+      // getValuesFromForm();
 
       // get the second exercise - needs its own webpage, otherwise overwrites contents of first exercise as it uses the same html tags
       // getExercise("7V1WCY9W41alhmRKhYUL");

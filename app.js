@@ -76,6 +76,7 @@
 			// console.log(" YAY " + docUser.data());
 			let tempUser = docUser.data();
 			console.log('....YAY found user with fullname ' + tempUser.fullName);
+			appendElement("userNickName", tempUser.nickName);
 			return docUser.data();
 		} 
 		throw new Error("No such user doc found");
@@ -125,15 +126,68 @@
 			return doc.data(); //must returns obj
 		}
 		throw new Error("No such Exercise doc found");
+	}	
+
+	// GET USER ANSWERS FROM FORMS - callt his after Next button is clicked! otehrwise its 0 as page has jsut loaded and use hasnt clicked anything yet
+	// reminder that QuerySelcetor is better than getElementById !
+	//does it need an event listenener 
+	// is the saved page not able to get the selected options from the index page?
+	function getValuesFromForm(e) {
+		e.preventDefault(); // how to pass in e, in order to prevent defaul??
+		console.log('getValuesFromForm');
+		// const checkboxes = document.querySelectorAll('input[name="exercise1"]:checked');
+		//this now works to select 1 checkbox
+		const x = document.querySelector('input[id="ex1q0"]');
+		// ('ex1q0');
+		console.log(x);
+		//after calling function as getValuesFromForm(event); checkboxes now contains data! but usingn :checked only selects the checkbox if its already been checked, so ignores all the unchecked boxes
+		const checkboxes = document.querySelectorAll('input[name="exercise1"]');
+		//why is this an empty node list??
+		console.log('all checkboxes: ');
+		console.log(checkboxes);
+		let checkboxValues = [];
+			checkboxes.forEach((checkbox) => {
+				//instead of getting value, get is checked? returns true if checked, whcih can then be stored in db as 1 or 0
+			    checkboxValues.push(checkbox.checked);
+			});
+			//list is emptyt
+		console.log('checkboxValues: ');
+		console.log(checkboxValues);
+		//values are returned ok, but not passed to the next page! - how to store these in db?
+		return checkboxValues;
+		//maybe instead of returning, need to save teh values to db, then redirect to next page that retrieves values from db??
+
+
+		// let x = document.getElementById(elementId).value;
+		// let allCheckBox = document.querySelectorAll('exercise1');
+		// //its empty
+		// console.log(allCheckBox);
+
+		//   allCheckBox.forEach((checkbox) => { 
+		//   checkbox.addEventListener('change', (event) => {
+		//   	console.log('blog')
+		//     if (event.target.checked) {
+		//       console.log(event.target.value)
+		//     }
+		//   })
+		// })
 	}
-
-
+	
+	// //submit button must have event listeneres !
+	// const btn = document.querySelector('#btn');
+	// btn.addEventListener('click', (event) => {
+	//     alert(getValuesFromForm());
+	// });
 
 	// HTML HELPER FUNCTIONS
 
 	//update any element with a string - 
 	function updateElement(elementId, stringContents) {
 		document.getElementById(elementId).innerHTML = stringContents;
+	}
+
+	function appendElement(elementId, stringContents) {
+		document.getElementById(elementId).innerHTML += stringContents;
 	}
 
 	//convert an array of items into a string, then call updateElement() using the returned string
@@ -145,7 +199,8 @@
 	}
 
 	//convert an array of items into a html checkbox, then call updateElement() using the returned string
-	//issue - not sure what to use for value field of htm checkbox?
+	//issue - not sure what to use for value field of htm checkbox? -
+	// +"' name='"+ tempName 
 	function arrayToCheckbox(arrayItems, exerciseId) {
 		let arrayAsCheckbox = "";
 		for(let i = 0; i < arrayItems.length; i++){
@@ -153,14 +208,24 @@
 			let tempName = "ex"+ exerciseId +"q" + i;
 			// console.log(tempName);
 			arrayAsCheckbox += 
-			"<label>" + arrayItems[i] 
+			"<label>" 
 			+ "<input type='checkbox' id='"+tempName
-			+"' name='"+ tempName 
+			+"' name='exercise"+ exerciseId 
 			+ "' value='"+tempName+"'>" 
+			+ arrayItems[i] 
 			+"</label><br>";
 		}
 		return arrayAsCheckbox;
 	}
+	// <input type="checkbox" name="sd1" value="past_errors_and_mistakes">
+ //            <label>I spend a lot of time thinking over past errors and mistakes</label><br>
+
+            
+ //            <label>
+ //            <input type="checkbox" name="sd1" id="" value="past_errors_and_mistakes">
+ //            I spend a lot of time thinking over past errors and mistakes
+ //            </label><br>
+            //how to get the value of the selected checkbox?
 
 
 	// IGNORE STUFF BELOW HERE :)
