@@ -2,68 +2,104 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  	<title>Test Firebase DB</title>
-    <!-- 
-    Tutorial Followed - https://levelup.gitconnected.com/lets-build-a-firebase-chat-app-using-vanilla-javascript-4baf877d9f49
-
-    Issues - its  unclear in the tutorial which code snippets go in which file index.html or app.js - so currntly nothing is getting saved to db. Plus i had to do extra work to setup the Realtime DB in Firebase
-
-    Chrome dev Console shows error - app.js:21 Uncaught TypeError: firebase.database is not a function
-    at app.js:21
-     -->
+  <title>Test Firebase DB - Integration Tests</title>
 </head>
 
 <body>
-  <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
+  <!-- Add Firebase SDKs and initialize Firebas
+  	Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
-    <!-- Copy and paste these scripts into the bottom of your <body> tag, but before you use any Firebase services: -->
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
 
-    <!--  using CDN for now as Auto Config option not working  -->
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <!-- <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-analytics.js"></script> -->
+  <!-- Add Firebase products that you want to use -->
+  <!-- <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script> -->
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-         https://firebase.google.com/docs/web/setup#available-libraries -->
+  <!-- this is for cloud firestore db - causes error if u dont include it! TypeError: firebase.firestore is not a function -->
+  <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+  <!-- Previously loaded Firebase SDKs -->
 
-  <h1>Test Firebase</h1>
+  <!-- include our custom Javascript functions -->
+  <script type="text/javascript" src="app.js"></script>
 
-  <form id="dbtFormCh1">
-            <h2>Chapter 1 - Basic Distress Tolerance Skills</h2>
-            
-            <div class="dbtExercisesApp">
-      <h4>Q2: Cost of self-destructive coping strats</h4>
-            <p>
-                Linking to Q1 - display the possible costs for the selected coping mechanisms.
-                All those strategies are simply pathways into deeper pain, offering only temporary relief.
-                Note the strategies you use and their costs - and add any costs that you can think of on your own.
-            </p>
-              <!-- Question 2 answer area -->
-            <!-- Part 1: Past errors and mistakes -->
-            <p>
-                <b>I spend a lot of time thinking over past errors and mistakes.</b><br>
-                You might miss good things in the present, and regret missing them as well, compounding the problem. 
-                You might end up having depression about the past.
-            </p>
-            <textarea name="costsPastErrorsAndMistakes" id="ch1_q1_costsPastErrorsAndMistakes" rows="10" cols="70"></textarea>
-            <br>
-            <button id="submitBtn" type="submit">Submit</button>
 
-             </form>
-           </div>
+  <h1>Test Firebase Online Database</h1>
+<!--   <div>
+    <p id="listUsers">user content</p>
+    <p id="listUsers2">user content2</p>
+  </div> -->
 
-            <script>
-           let name="";
-            function init() {
-              name = prompt("Please enter your name");
-            }
-            //is abvoe { is right place ??
-            document.addEventListener('DOMContentLoaded', init);
+<!-- <h2 id="exModule">Module - </h2> -->
 
-            dbtForm.addEventListener('submit', saveExercise);
-            </script>
+  <h2>Exercise 1</h2>
+    <div id="exerciseDiv">
+    </div>
 
-    <!-- firebase sdk link goes here -->
-    <script type="text/javascript" src="app.js"></script>
+    <div id="exerciseDiv2">
+    </div>
+
+
+    <br>
+    <!-- IMPORTANT TEMPLATE CODE -->
+    <div id="testExercise">
+      <!-- <form method="get" action="saved.html"> -->
+        <!-- should be post, not get!? submitting to same page doenst work either ?? -->
+      <form method="post" action="saved.html">
+        <h2 id="userNickName">Current User - </h2>
+        <!-- module, level -->
+        <h2 id="exerciseModule">Module - </h2>
+        <p id="exerciseLevel">Level</p>
+        <!-- intro & other db fields - TODO update html tags to be more suitable if required -->
+        <p id="exerciseIntro">Intro</p>
+        <p id="exerciseNum">Number</p>
+        <p id="exercisePoints">Points</p>
+        <!-- this gets replaced with an array of dynamically genearted checkoxes - ISSUe exercise2 needs textareas instead -->
+        <p id="exerciseQuestions">exerciseQuestions</p>
+
+        <!-- <input id="btn" type="submit" value="Submit"> -->
+
+        <button id="submitBtn" type="submit">Submit me</button>
+      </form>
+    </div>
+
+  <script>
+  //submit button must have event listeneres !
+  const submitBtn = document.querySelector('#submitBtn');
+  submitBtn.addEventListener('click', (event) => {
+      
+      let arrayCheckboxIsChecked = getValuesFromForm(event);
+      console.log(arrayCheckboxIsChecked);
+      //how to send this variable to the next page?
+      alert('hya');
+      //  method getValuesFromForm() is being called by saved.html page
+      // alert(getValuesFromForm());
+  });
+
+      // get the first exercise
+      getUser('1HWx13Ujkm851OoUGkJ5');
+
+      getExercise("oVg1icfURf9aFbNbf3TC");
+
+      //call thsi from saved.html page
+      // getValuesFromForm();
+
+      // get the second exercise - needs its own webpage, otherwise overwrites contents of first exercise as it uses the same html tags
+      // getExercise("7V1WCY9W41alhmRKhYUL");
+
+
+      //TODO these really needs a try/catch block
+      //get all users  - displays in console only
+      // getUsers();
+      //get all exercises  - displays in console only
+      //getExercises();
+
+
+    // addUser(newUser1)
+
+
+  </script>
 
 </body>
 </html>
